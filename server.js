@@ -14,7 +14,18 @@ if (!BOT_TOKEN || !SUPABASE_URL || !SUPABASE_KEY) {
 }
 
 const app = express();
-app.use(cors());
+
+// ✅ Исправленный CORS для Telegram Web App
+const corsOptions = {
+  origin: [
+    'https://spectacular-meerkat-a550cc.netlify.app',
+    'https://t.me'
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Универсальный запрос к Supabase REST API
